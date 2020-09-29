@@ -161,7 +161,6 @@ const Shop = (props) => {
 
                             {keyword && <Chip label={`"${keyword}"`} />}
                             <div className={classes.grower}></div>
-
                         </Box>
 
                         

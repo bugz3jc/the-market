@@ -24,7 +24,11 @@ const useStyles = makeStyles(theme =>({
       justifyContent: 'space-between'
   }
 }));
-
+const formatter = new Intl.NumberFormat('en-PH',{
+  style: 'currency',
+  currency:'PHP',
+  minimumFractionDigits: 2
+});
 const ProductCard = (props) => {
   const {data, history} = props;
   const classes = useStyles();
@@ -41,7 +45,7 @@ const ProductCard = (props) => {
             {data.name}
           </Typography>
           <Typography variant="body1" align="right">
-            Php{data.price}
+            {formatter.format(data.price)}
           </Typography>
         </CardContent>
       </CardActionArea>

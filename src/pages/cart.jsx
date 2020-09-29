@@ -1,10 +1,12 @@
 import React from 'react';
 import {
-    Container, Breadcrumbs, Link, Typography, Table, TableCell, TableBody, TableHead, TableRow, Paper, TableContainer, Grid, TableFooter, Button, TextField, IconButton
+    Container, Breadcrumbs, Link, Typography, Table, TableCell, TableBody, TableHead, TableRow, Paper, TableContainer, Grid, TableFooter, Button, TextField, IconButton, ButtonGroup
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Add from '@material-ui/icons/Add';
+import Remove from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles( (theme) => (
     {
@@ -12,6 +14,7 @@ const useStyles = makeStyles( (theme) => (
             paddingTop: theme.spacing(2),
             paddingBottom: theme.spacing(8),
             flexGrow: 1,
+            textAlign: 'center'
             
         },
         cartTable: {
@@ -33,19 +36,37 @@ const useStyles = makeStyles( (theme) => (
         cartContainer: {
             border: '1px solid',
             borderColor: theme.palette.divider
+        },
+        quantintyEl: {
+            color: theme.palette.common.black + '!important'
         }
 }
 
 
 ));
-
+const formatter = new Intl.NumberFormat('en-PH',{
+    style: 'currency',
+    currency:'PHP',
+    minimumFractionDigits: 2
+});
 const Cart = (props) => {
     const { history, cartItems } = props;
-    console.log(cartItems);
     const classes = useStyles();
     let subtotal = 0;
     const standardShipping = 150
-    return(
+    if(cartItems.length < 1){
+        return (
+            <Container className={classes.root}>
+                <Typography variant="h6" align="center" className={classes.padding}>
+                    There's no items in your cart.
+                </Typography>
+                <Button variant="contained" color="primary" onClick ={() => history.push('/shop')}>
+                    Continue Shopping
+                </Button>
+            </Container>
+        )
+    }else{
+        return(
         <Container className={classes.root}>
             <Breadcrumbs aria-label="breadcrumb">
                 <Link color="inherit" href="#" onClick={(event) => { event.preventDefault(); history.push('/')}}>
@@ -56,7 +77,7 @@ const Cart = (props) => {
                 </Link>
                 <Typography color="textPrimary">Cart</Typography>
             </Breadcrumbs>
-            <Typography variant="h4" className={classes.marginBottom}>
+            <Typography variant="h4" className={classes.marginBottom} align="left">
                 Cart
             </Typography>
             <Grid container spacing={2}>
@@ -84,16 +105,21 @@ const Cart = (props) => {
                                         </Typography>
                                     </TableCell>
                                     <TableCell align="right">
-                                        Php {i.price}
+                                        {formatter.format(i.price)}
                                     </TableCell >
                                     <TableCell align="right">
-                                        {i.quantity}
+                                        
+                                        <ButtonGroup color="secondary" size="small">
+                                            <Button onClick={() => props.changeQuantity(k, 'plus')}><Add /></Button>
+                                            <Button disabled className={classes.quantintyEl}>{i.quantity}</Button>
+                                            <Button onClick={() => props.changeQuantity(k, 'minus')}><Remove /></Button>
+                                        </ButtonGroup>
                                     </TableCell>
                                     <TableCell align="right">
-                                        Php {i.price * i.quantity}
+                                        {formatter.format(i.price * i.quantity)}
                                     </TableCell>
                                     <TableCell>
-                                    <IconButton aria-label="delete">
+                                    <IconButton aria-label="delete" onClick={() => props.onCartRemove(k)}>
                                         <DeleteIcon />
                                     </IconButton>
                                     </TableCell>
@@ -105,7 +131,7 @@ const Cart = (props) => {
                             <TableRow>
                                 <TableCell colSpan={3} align="right">
                                     
-                                    <TextField variant="outlined" />
+                                    <TextField variant="outlined" label="Enter Coupon"/>
                                 </TableCell>
                                 <TableCell align="right" colSpan={2}>
                                     <Button variant="contained">Apply Coupon</Button>
@@ -130,7 +156,7 @@ const Cart = (props) => {
                                     Subtotal
                                 </TableCell>
                                 <TableCell align="right">
-                                    Php {subtotal}
+                                    {formatter.format(subtotal)}
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -139,7 +165,7 @@ const Cart = (props) => {
                                 </TableCell>
                                 <TableCell align="right">
                                     <Typography>Standard Shipping </Typography>
-                                    <Typography>Php {standardShipping}</Typography>
+                                    <Typography>{formatter.format(standardShipping)}</Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -148,7 +174,7 @@ const Cart = (props) => {
                                     </TableCell>
                                 
                                 <TableCell align="right">
-                                    <Typography variant="h6">PHP {subtotal + standardShipping}</Typography>
+                                    <Typography variant="h6">{formatter.format(subtotal + standardShipping)}</Typography>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -156,6 +182,7 @@ const Cart = (props) => {
                             <TableRow>
                                 
                                 <TableCell align="right" colSpan={2}>
+                                    
                                     <Button variant="contained" color="primary">
                                         Proceed to Checkout
                                     </Button>
@@ -167,7 +194,7 @@ const Cart = (props) => {
                 </Grid>
             </Grid>
         </Container>
-    )
+    )}
 }
 
 export default withRouter(Cart);

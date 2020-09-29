@@ -193,7 +193,7 @@ const useStyles = makeStyles( (theme) => (
                             </Link>
                         </li>
                         <li>
-                            <Link onClick={() => history.push('/cart')}>
+                            <Link href='#' onClick={(event) =>{event.preventDefault(); history.push('/cart')} }>
                                 <Badge badgeContent={cart.length} color="secondary">
                                     <ShoppingCart className={classes.iconReset}/>
                                 </Badge>

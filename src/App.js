@@ -31,6 +31,8 @@ class App extends Component{
 
     
     this.handleChange = this.handleChange.bind(this);
+    this.removeCartItem = this.removeCartItem.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
     this.state ={
       cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
     };
@@ -43,8 +45,29 @@ class App extends Component{
     this.setState({cartItems: cartItems});
     localStorage.setItem('cartItems',JSON.stringify(cartItems));
   }
+  removeCartItem(index) {
+    let cartItems = [...this.state.cartItems];
+    cartItems.splice(index,1);
+    this.setState({cartItems: cartItems});
+    localStorage.setItem('cartItems',JSON.stringify(cartItems));
+  }
+  changeQuantity(index, mode){
+    let cartItems = [...this.state.cartItems];
+    let cartItem = cartItems[index];
+    switch (mode){
+      case 'plus':
+        if(cartItem.quantity < cartItem.available_quantity) cartItem.quantity++;
+        break;
+      case 'minus':
+        if(cartItem.quantity > 1) cartItem.quantity--;
+        break;
+        default: 
+        break;
+    }
+    this.setState({cartItems: cartItems});
+    localStorage.setItem('cartItems',JSON.stringify(cartItems));
+  }
   render() {
-    
     return(
     <React.Fragment>
       <CssBaseline />
@@ -57,7 +80,7 @@ class App extends Component{
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/shop/:id" render={(props) => <ProductDetail onCartAdd={this.handleChange} cartItems={this.state.cartItems}/>} />
-    <Route exact path="/cart" render={(props) => <Cart cartItems={this.state.cartItems} /> }  />
+        <Route exact path="/cart" render={(props) => <Cart cartItems={this.state.cartItems} onCartRemove={this.removeCartItem} changeQuantity={this.changeQuantity} /> }  />
         <Route exact path="/404" component={PageNotFound} />
         <Redirect to="/404" />
       </Switch>
