@@ -1,0 +1,84 @@
+{
+    "products":[
+        {
+            "SKU":"SAMPLE1",
+            "name": "CORSAIR 275R AIRFLOW ATX GAMING CASE – BLACK | TEMPERED GLASS SIDE PANEL | FRONT : 3 x 120MM FANS | SKU# CS-CC-9011181",
+            "description": "This is a sample product",
+            "price": "12.66",
+            "categories":[
+                3, 4, 5
+            ],
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+            "availableQuantity" : 24,
+            "additionalInformation": [
+                {
+                    "key": "Warranty",
+                    "value": "30 Days"
+                }
+            ]
+            
+            
+        }, 
+        {
+            "SKU":"SAMPLE2",
+            "name": "shoe 2",
+            "description": "This is a sample product",
+            "price": "12.66",
+            "categories":[
+                1, 2, 5
+            ],
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            
+        },
+        {
+            "SKU":"SAMPLE4",
+            "name": "shoe 3",
+            "description": "This is a sample product",
+            "price": "13.66",
+            "categories":[
+                3, 2, 5
+            ],
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            
+        },
+        {
+            "SKU":"SAMPLE3",
+            "name": "shoe 4",
+            "description": "This is a sample product",
+            "price": "14.66",
+            "categories":[
+                 1, 2
+            ],
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            
+        }
+        
+    ],
+    "categories":[
+        {
+            "id": 1,
+            "name":"motherboards",
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+            "id": 2,
+            "name":"SSD",
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+            "id": 3,
+            "name":"HDD",
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+            "id": 4,
+            "name":"GPU",
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+            "id": 5,
+            "name": "RAM",
+            "image": "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+    ]
+}
