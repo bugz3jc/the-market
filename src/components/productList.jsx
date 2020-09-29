@@ -20,26 +20,24 @@ const ProductList = (props) =>{
     }, [props]);
     
     const [products, setProducts] = useState([]);
-    const fetchData = async (props) => {
+    const fetchData = async () => {
+            let params = 'list';
+        if (props.category){
+            params = 'category/' + props.category
+        }
+
+        if (props.keyword)
+            {
+                params = 'search/' + props.keyword
+            }
         const fetchData = await fetch(
-                `/data.json`
+                'http://api.johncristayco.me/product/' + params
         );
 
-        const data = await fetchData.json();
-        let { products } = data;
+        const products = await fetchData.json();
         const numberOfItems = props.rows * 3 || products.length;
-        if(props.category){
-           products = data.products.filter(item =>{
-                return item.categories.includes(props.category);
-            });
-            
-        }
-        if (props.keyword){
-            products = data.products.filter(item => {
-                return item.name.indexOf(props.keyword) >= 0;
-            });
-        }
-        console.log(props);
+        
+        
         setProducts(products.slice(0, numberOfItems));
         
     };
@@ -47,7 +45,7 @@ const ProductList = (props) =>{
     
     const classes = useStyles();
     return (
-    <div className = {classes.root}>
+    <div className={classes.root}>
         {products.map((item, key) => (
             <ProductCard key={key} data={item} />
     ))}

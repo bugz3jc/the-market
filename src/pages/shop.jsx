@@ -49,20 +49,17 @@ const Shop = (props) => {
         fetchData();
     }, []);
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState({
-        id: '',
-        name: 'All'
-    });
+    
     const [keyword, setKeyword] = useState('');
-    const fetchData = async(props) => {
+    const fetchData = async() => {
         const data = await fetch(
-            '/data.json'
+            'http://api.johncristayco.me/category/list'
         );
 
-        const { categories } = await data.json();
+        const categories = await data.json();
         const cat = [{
-            id: '',
-            name: 'All',
+            category_id: 0,
+            label: 'All',
             },
             ...categories
             ];
@@ -70,23 +67,30 @@ const Shop = (props) => {
 
 
     }
-
+    const [selectedCategory, setSelectedCategory] = useState({
+        category_id: 0,
+        label: 'All'
+    });
     const categoryChange = (event) => {
         let cat = categories.filter((item)=>{
-            return item.id === event.target.value
+            return item.category_id === event.target.value
         })[0];
         setSelectedCategory(cat);
     }
     const handleSearch = (event) => {
         if(event.key === 'Enter'){
+            setSelectedCategory({
+                category_id: 0,
+                label: 'All'
+            });
             setKeyword(event.target.value);
         }
     }
     const handleClear = () => {
         setKeyword('');
         setSelectedCategory({
-            id: '',
-            name: 'All'
+            category_id: 0,
+            label: 'All'
         });
         document.getElementById('searchbar').value = '';
     }
@@ -113,11 +117,11 @@ const Shop = (props) => {
                                 <Select
                                     labelId="categories"
                                     id="categoryInput"
-                                    value={selectedCategory.id}
+                                    value={selectedCategory.category_id}
                                     onChange={categoryChange}
                                     >
                                     {categories.map((i,k) => (
-                                        <MenuItem value={i.id} key={k}>{i.name}</MenuItem>
+                                        <MenuItem value={i.category_id} key={k}>{i.label}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
@@ -153,7 +157,7 @@ const Shop = (props) => {
                                 Shop
                             </Typography>
                             
-                            <Chip  label={selectedCategory.name}/>
+                            <Chip  label={selectedCategory.label}/>
 
                             {keyword && <Chip label={`"${keyword}"`} />}
                             <div className={classes.grower}></div>
@@ -161,7 +165,7 @@ const Shop = (props) => {
                         </Box>
 
                         
-                        <ProductList category={selectedCategory.id} keyword={keyword}/>
+                        <ProductList category={selectedCategory.category_id} keyword={keyword}/>
                         
                 </Grid>
             </Grid>

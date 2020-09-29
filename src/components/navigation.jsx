@@ -19,7 +19,7 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-
+import Logo from './../images/favicon-32x32.png';
 
 const useStyles = makeStyles( (theme) => (
 
@@ -170,7 +170,7 @@ const useStyles = makeStyles( (theme) => (
             <Toolbar variant="dense">
                 <Typography variant="h6" className={classes.grow}>
                     <NavLink to="/" className={classes.branding} >
-                        <img src="/favicon-32x32.png" alt="" className={classes.brandIcon}/>
+                        <img src={Logo} alt="" className={classes.brandIcon}/>
                         The Market
                     </NavLink>
                 </Typography>

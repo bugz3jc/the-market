@@ -46,7 +46,7 @@ const ProductDetail = (props) => {
     const classes = useStyles();
     const { match, history, cartItems } = props;
     useEffect(() => {
-        fetchItem();
+        fetchItem(match);
     }, [match]); 
 
     const [product, setProduct] = useState({});
@@ -62,29 +62,23 @@ const ProductDetail = (props) => {
 
 
 
-    const fetchItem = async () => {
+    const fetchItem = async (match) => {
         const fetchData = await fetch(
-                `/data.json`
+                `http://api.johncristayco.me/product/sku/${match.params.id}`
         );
-
-        const data = await fetchData.json();
-        let { products, categories } = data;
-        products = products.filter((i) => {
-            return i.SKU === match.params.id
-        })[0];
         
-        let cat = [];
-        categories.map((i) => {
-            if(products.categories.includes(i.id)){
-                cat.push(i.name);
-            }
-            return false;
-        });
-        setAi(products.additionalInformation);
-        setCategoryChips(cat);
-        setProduct(products);
+        const data = await fetchData.json();
+        const product = {...data[0]};
+        const fetchCategories = await fetch(
+            `http://api.johncristayco.me/category/product/${product.product_id}`
+        )
+        
+        const categories = await fetchCategories.json();
+        setAi(product.additionalInformation);
+        setCategoryChips(categories);
+        setProduct(product);
         cartItems.map((i) =>{
-            if(i.SKU === products.SKU){
+            if(i.sku === product.sku){
                 setIsOnCart(true);
             }
             return false;
@@ -93,7 +87,7 @@ const ProductDetail = (props) => {
     const handleQuantity = (type) => {
         switch (type) {
             case 'add':
-                if(quantity < (product.availableQuantity))  setQuantity(quantity + 1);
+                if(quantity < (product.available_quantity) )  setQuantity(quantity + 1);
                 break;
             case 'minus':
                 if(quantity >= 2) setQuantity(quantity - 1);
@@ -118,7 +112,7 @@ const ProductDetail = (props) => {
     }
 return (
     <Container className={classes.root}>
-        <Breadcrumbs aria-label="breadcrumb" className={classes.marginBottom}>
+            <Breadcrumbs aria-label="breadcrumb" className={classes.marginBottom}>
                 <Link color="inherit" href="#" onClick={(event) => { event.preventDefault(); history.push('/')}}>
                     Home
                 </Link>
@@ -160,7 +154,7 @@ return (
                         <Button onClick={() => handleQuantity('add')}><Add /></Button>
                     </ButtonGroup>
                     <Typography component="span" variant="body2">
-                        {product.availableQuantity} Available Quantity 
+                        {product.available_quantity} Available Quantity 
                     </Typography>
                 </Box>
                 <Button variant="contained" color="primary" startIcon={<AddShoppingCart />} size="large" onClick={addToCart} disabled={isOnCart}>
@@ -171,7 +165,7 @@ return (
                     </Typography>
                     <Typography variant="body1" component="div">
                         Categories {categoryChips && categoryChips.map((i,k) => (
-                            <Chip key={k} label={i} className={classes.hSpacing} />
+                            <Chip key={k} label={i.label} className={classes.hSpacing} />
                         ))}
                     </Typography>
             </Grid>

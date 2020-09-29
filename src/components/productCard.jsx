@@ -28,21 +28,20 @@ const useStyles = makeStyles(theme =>({
 const ProductCard = (props) => {
   const {data, history} = props;
   const classes = useStyles();
-
   return (
-    <Card className={classes.root} onClick={() => history.push(`/shop/${data.SKU}`)}>
+    <Card className={classes.root} onClick={() => history.push(`/shop/${data.sku}`)}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={data.image}
+          src={data.image}
           title={data.name}
         />
         <CardContent className={classes.content}>
           <Typography variant="h6">
             {data.name}
           </Typography>
-          <Typography variant="h6" align="right">
-            ${data.price}
+          <Typography variant="body1" align="right">
+            Php{data.price}
           </Typography>
         </CardContent>
       </CardActionArea>

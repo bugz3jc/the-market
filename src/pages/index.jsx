@@ -111,11 +111,10 @@ const Home = (props) => {
 
     const [cat, setCat ] = useState([]);
     const fetchData = async (props) => {
-        const d = await fetch(`/data.json`);
+        const d = await fetch(`http://api.johncristayco.me/category/list`);
 
         const data = await d.json();
-        let { categories } = data;
-        setCat(categories);
+        setCat(data);
     }
 
     return (
@@ -153,7 +152,7 @@ const Home = (props) => {
                                     <Paper key={k} className={classes.paper}>
                                         <img src={i.image} alt=""/>
                                         <Typography variant="h6" component="span" align="center">
-                                            {i.name}
+                                            {i.label}
                                         </Typography>
                                     </Paper>
                                 ))}
@@ -166,10 +165,10 @@ const Home = (props) => {
                 </section>
                 <section className={`${classes.sectionBG} ${classes.sectionPadding}`}>
                     <Container maxWidth="md" style={{textAlign: 'center'}}>
-                            <Typography gutterBottom variant='h5' align="center">
+                            <Typography variant='h5' align="center">
                                 Featured
                             </Typography>
-                        <ProductList category={2} row={1}/>
+                        <ProductList category={1} row={1}/>
                         <ButtonBase focusRipple className={classes.cta} onClick={ () => history.push('/shop')}>
                                 SHOP NOW
                         </ButtonBase>
@@ -177,7 +176,7 @@ const Home = (props) => {
                 </section>
                 <section className={classes.sectionPadding}>
                 <Container maxWidth="md" style={{textAlign: 'center'}}>
-                        <Typography gutterBottom variant='h5' align="center">
+                        <Typography  variant='h5' align="center">
                             About Us
                         </Typography>
                         <Typography variant="body1" align="center" >

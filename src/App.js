@@ -24,6 +24,7 @@ let theme = createMuiTheme({
   }
 });
 theme = responsiveFontSizes(theme);
+
 class App extends Component{
   constructor(props){
     super(props);
@@ -31,7 +32,7 @@ class App extends Component{
     
     this.handleChange = this.handleChange.bind(this);
     this.state ={
-      cartItems: []
+      cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
     };
 
    
@@ -40,6 +41,7 @@ class App extends Component{
     let cartItems = [...this.state.cartItems];
     cartItems.push(data);
     this.setState({cartItems: cartItems});
+    localStorage.setItem('cartItems',JSON.stringify(cartItems));
   }
   render() {
     
