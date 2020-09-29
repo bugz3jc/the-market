@@ -47,7 +47,6 @@ const ProductList = (props) =>{
     const classes = useStyles();
     return (
     <div className={classes.root}>
-        <Typography variant="body1">{`${products.length} items`}</Typography>
         {products.map((item, key) => (
             <ProductCard key={key} data={item} />
     ))}
