@@ -127,17 +127,17 @@ const useStyles = makeStyles( (theme) => (
             link: '/shop',
             onClick: () => history.push('/shop')
         },
-        {
-            text: 'About',
-            link: '/about',
-            onClick: () => history.push('/about')
-        }
-        ,
-        {
-            text: 'Contact',
-            link: '/contact',
-            onClick: () => history.push('/contact')
-        }
+        // {
+        //     text: 'About',
+        //     link: '/about',
+        //     onClick: () => history.push('/about')
+        // }
+        // ,
+        // {
+        //     text: 'Contact',
+        //     link: '/contact',
+        //     onClick: () => history.push('/contact')
+        // }
     ];
     
     const classes = useStyles();
