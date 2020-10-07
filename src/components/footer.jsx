@@ -70,17 +70,7 @@ const Footer = (props) => {
             link: '/shop',
             onClick: () => history.push('/shop')
         },
-        {
-            text: 'About',
-            link: '/about',
-            onClick: () => history.push('/about')
-        }
-        ,
-        {
-            text: 'Contact',
-            link: '/contact',
-            onClick: () => history.push('/contact')
-        }
+        
     ];
     const classes = useStyles();
     return (

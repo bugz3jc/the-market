@@ -99,7 +99,7 @@ const Cart = (props) => {
                                 return (
                                 <TableRow key={k}>
                                     <TableCell>
-                                        <img src={i.image} alt={i.name}/>
+                                        <img src={i.image} alt={i.name} width={150}/>
                                         <Typography variant="body1">
                                             {i.name}
                                         </Typography>
@@ -110,9 +110,10 @@ const Cart = (props) => {
                                     <TableCell align="right">
                                         
                                         <ButtonGroup color="secondary" size="small">
-                                            <Button onClick={() => props.changeQuantity(k, 'plus')}><Add /></Button>
-                                            <Button disabled className={classes.quantintyEl}>{i.quantity}</Button>
+                                            
                                             <Button onClick={() => props.changeQuantity(k, 'minus')}><Remove /></Button>
+                                            <Button disabled className={classes.quantintyEl}>{i.quantity}</Button>
+                                            <Button onClick={() => props.changeQuantity(k, 'plus')}><Add /></Button>
                                         </ButtonGroup>
                                     </TableCell>
                                     <TableCell align="right">

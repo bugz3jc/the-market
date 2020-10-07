@@ -168,7 +168,7 @@ const Home = (props) => {
                             <Typography variant='h5' align="center">
                                 Featured
                             </Typography>
-                        <ProductList category={1} row={1}/>
+                        <ProductList  row={1}/>
                         <ButtonBase focusRipple className={classes.cta} onClick={ () => history.push('/shop')}>
                                 SHOP NOW
                         </ButtonBase>

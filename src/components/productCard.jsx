@@ -37,7 +37,7 @@ const ProductCard = (props) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          src={data.image}
+          image={data.image}
           title={data.name}
         />
         <CardContent className={classes.content}>
